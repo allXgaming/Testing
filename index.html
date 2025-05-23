@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All X Gaming - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- নেভিগেশন বার -->
+    <header class="p-4 flex justify-between items-center border-b border-gray-800">
+        <h1 class="text-2xl font-bold">All X Gaming</h1>
+        <nav class="hidden md:flex space-x-6">
+            <a href="index.html" class="hover:text-blue-400">Home</a>
+            <a href="gaming.html" class="hover:text-blue-400">Games</a>
+            <a href="about.html" class="hover:text-blue-400">About</a>
+            <a href="contact.html" class="hover:text-blue-400">Contact</a>
+        </nav>
+        <div class="flex items-center">
+            <input type="text" placeholder="Search games..." class="px-4 py-2 rounded-lg bg-gray-800">
+            <button class="ml-2 p-2 hover:bg-gray-800 rounded">⚙️</button>
+        </div>
+    </header>
+
+    <!-- হোমপেজ কন্টেন্ট -->
+    <main class="p-4">
+        <h2 class="text-xl font-semibold mb-4">New Games</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="new-games"></div>
+
+        <h2 class="text-xl font-semibold mt-8 mb-4">Recommended</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="recommended-games"></div>
+
+        <h2 class="text-xl font-semibold mt-8 mb-4">Popular Games</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="popular-games"></div>
+    </main>
+
+    <!-- ফুটার -->
+    <footer class="p-4 border-t border-gray-800 mt-8">
+        <div class="flex justify-between">
+            <p>© 2023 All X Gaming. All rights reserved.</p>
+            <div class="flex space-x-4">
+                <a href="privacy.html" class="hover:text-blue-400">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-blue-400">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // গেম ডাটা (একটি আলাদা JS ফাইলেও রাখতে পারেন)
+        const games = [
+            { id: 1, title: "Game A", category: "Adventure", image: "https://via.placeholder.com/300x200", isNew: true },
+            { id: 2, title: "Game B", category: "Puzzle", image: "https://via.placeholder.com/300x200", isRecommended: true },
+            { id: 3, title: "Game C", category: "Action", image: "https://via.placeholder.com/300x200", isPopular: true },
+            { id: 4, title: "My Awesome Game", category: "Action", image: "https://via.placeholder.com/300x200?text=My+Awesome+Game", link: "https://allxgaming.github.io/", isNew: true }
+        ];
+
+        function loadGames() {
+            const newGames = games.filter(game => game.isNew);
+            const recommendedGames = games.filter(game => game.isRecommended);
+            const popularGames = games.filter(game => game.isPopular);
+
+            renderGames("new-games", newGames);
+            renderGames("recommended-games", recommendedGames);
+            renderGames("popular-games", popularGames);
+        }
+
+        function renderGames(containerId, games) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = "";
+            games.forEach(game => {
+                container.innerHTML += `
+                    <div class="bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition">
+                        <img src="${game.image}" alt="${game.title}" class="w-full h-48 object-cover rounded-t-lg">
+                        <h3 class="mt-2 font-medium">${game.title}</h3>
+                        <p class="text-gray-400 text-sm">${game.category}</p>
+                        <a href="${game.link || '#'}" class="text-blue-400 text-sm mt-2 inline-block">Play Now</a>
+                    </div>
+                `;
+            });
+        }
+
+        window.onload = loadGames;
+    </script>
+</body>
+</html>
